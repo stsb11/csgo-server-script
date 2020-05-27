@@ -1,2 +1,2 @@
-# csgo-server-script
-A bash script convenient Linux CS:GO servers
+#A bash script convenient Linux CS:GO servers
+##Copy into your csgo-ds dir, make executable and run. 
