@@ -3,138 +3,213 @@ echo
 echo Brownsoft Incorporated - CSGO Auto launcher
 echo -------------------------------------------
 echo
+key=`cat ../key.txt`
 gamemode=""
 gametype=""
 
-echo Step 1 - select your game type.
-echo [0] - Classic casual. Best of 15 rounds. Friendly fire off, no armour available, defuse kits for all.
-echo [1] - Competitive Missions. Best of 30 rounds. Friendly fire on, armour available, have to buy defuse kits.
-echo [2] - Arms race. Weapons upgraded by killing opponents.
-echo [3] - Demolition. Weapons change each time an opponent is killed. 
-echo [4] - Deathmatch. All vs all.
-echo [5] - Battle Royale
-echo [6] - Guardian. Defend an area against waves of bot enemies. IMPORTANT: Only works on Dust2, Cobblestone, Bank, Office and Overpass.
+echo "Step 1 - select your game type. Default is 'Classic casual'."
+echo "[0] - Classic casual. Best of 15 rounds. Friendly fire off, no armour available, defuse kits for all."
+echo "[1] - Competitive Missions. Best of 30 rounds. Friendly fire on, armour available, have to buy defuse kits."
+echo "[2] - Arms race. Deathmatch style. Weapons upgraded by killing opponents. Get a kill with the golden knife to win."
+echo "[3] - Demolition. Weapons change next round if you kill an opponent."
+echo "[4] - Deathmatch. Free-for-all lasting 3mins."
+echo "[5] - Battle Royale. CS:GO's Fortnite mode - best for 10 or more players."
+echo "[6] - Guardian. Defend an area against waves of bot enemies. IMPORTANT: Set this up with a Guardian-compatable single map."
+echo "[7] - Weapons Expert. Each weapon can only be purchased once. Best of 20, Friendly fire on, body armour available. 5min warm-up."
+echo "[8] - Wingman. FF on, armour available. Meant to be for 2vs2 on smaller maps, but can have more."
 echo
 echo -n "Enter your game type (E.g. 0): "
 read gametype
 
-#echo [0] - DEFAULT. Classic mode. Pick your own weapons, etc.
-#echo [1] - Arms race. Weapons upgraded by killing opponents.
-#echo [2] - Training tutorial. Irrelevant for online play. 
-#echo [3] - Custom settings, where configured. Currently a deathmatch on the training map.
-#echo [4] - Guardian. Protect the objective from waves of enemies with a specified weapon. 
-#echo [5] - War games. Complete the objective to win.
-#echo [6] - Danger Zone. Fortnite for CS-GO. 
+if [ -z "$gametype" ]; then
+    gametype="0"
+fi
 
-#echo Step 2 - select your game mode. Normally, you want this to be 0.
-#echo [0] - DEFAULT. Casual. Best of 15 rounds. Friendly fire off, no armour available, defuse kits for all. 
-#echo [1] - Competitive Missions. Best of 30 rounds. Friendly fire on, armour available, have to buy defuse kits. 
-#echo [2] - Competitive Wingman. 2 vs 2. 
-#echo [3] - Competitive Weapons expert. Each weapon can only be purchased once.
-#read gamemode
+#Mystery game type 5 - War games. Complete the objective to win.
 
 if [ "$gametype" -ne "5" ]; then
 echo
-echo Step 2 - Select your map pack
-echo [0] - Dust II only
-echo [1] - 2008 maps. Only Agency works. 
-echo [2] - 2007 maps. Untested. Probably not working.
-echo [3] - 2006 maps Untested. Probably not working. 
-echo [4] - 2005 maps. Untested. Probably not working.
-echo [5] - Operation Breakout. Does not work. 
-echo [6] - Active Competition maps. Inferno, Train, Mirage, Nuke, Dust II, Overpass, Vertigo. 
-echo [7] - Delta. Bomb disposal maps. Mirage, Inferno, Overpass, Nuke, Train, Cache.
-echo [8] - Sigma. Bomb disposal maps. Anubis, Chlorine, Vertigo, Cobblestone, Canals.
-echo [9] - Reserves. Canals and cache work. Aztec and Dust not working. 
-echo [10] - Hostage maps. Agency, Assault, Militia, Italy, Office. 
-echo [11] - Deathmatch. 
-echo [12] - Arms Race. Baggage, Lake, Lunacy, Monastery, Safehouse, Shoots, St. Marc
-echo [13] - Demolition. Bank, Lake, Safehouse, Sugarcane, St. Marc, Shortdust
-echo [14] - Low Gravity. Lake, Safehouse, Dizzy, Lunacy and Shoots. 
+echo "Step 2 - Select your map pack. CAPITALS denote non-working maps, (p) = Pistols only."
+echo "[1] - Active competition maps. Inferno, Train, Mirage, Nuke, Dust II, Overpass and Vertigo."
+echo "[2] - Defusal Group Delta. Mirage, Inferno, Overpass, Nuke, Train and Cache."
+echo "[3] - Defusal Group Sigma. Anubis, Chlorine, Vertigo, Cobblestone and Canals."
+echo "[4] - Reserve maps. AZTEC, DUST, Canals and Cache."
+echo "[5] - Hostage Rescue. Agency, Assault, Italy, Militia and Office."
+echo "[6] - Jumbo Pack. Every map in Delta, Sigma, Hostage plus Dust II."
+echo "[7] - Smaller maps A: Baggage, Lake, Lunacy, Monastery (p), Safehouse, Shoots and St. Marc."
+echo "[8] - Smaller maps B: Bank, Lake, Safehouse, Sugarcane (p), St. Marc and Shortdust."
+echo "[9] - Smaller maps C: Lake, Safehouse, Dizzy, Lunacy and Shoots."
+echo "[10] - Pick a single map to play from a list."
 echo
-echo SKIRMISH MAPS - Weapons rotated by killing opponents. CAPITALS denote non-working maps. 
-echo [15] - Skirmish: Stab Stab Zap. Knives and tazers. Safehouse, Lake, Rialto, AUSTRIA. 
-echo [16] - Skirmish: Flying Scoutsman. Low gravity, sniping. Lake, Safehouse, Dizzy, Lunacy and Shoots. 
-echo [17] - Skirmish: Trigger Discipline. Limited ammo. AUSTRIA, Inferno, THRILL, Mirage, Dust II and LITE.
-echo [18] - Skirmish: Headshots. Agency, Inferno, BLACKGOLD, Cache, Cobblestone and Nuke. 
-echo [19] - Skirmish: Hunter Gathers. Nuke, Dust II, INSERTION, THRILL, Canals, Cobblestone and Train.  
-echo [20] - Skirmish: Heavy Assault. Dust 2, Mirage, Overpass, Shipped and Austria.
-echo [21] - Skirmish: Arms Race. Lake, Baggage, Safehouse, St Marc, Shoots, Lunacy and Monastery
-echo [22] - Skirmish: Demolition. Lake, Safehouse, Sugarcane, Bank, St Marc and ShortDust.
+echo "Play these on Classic Casual for unique game rules. IMPORTANT: Do a map vote after the first warm-up to implement the rules."
+echo "[11] - Stab, Stab... Zap. Knives, grenades and tazers only. Safehouse, Lake, Rialto, AUSTRIA."
+echo "[12] - Flying Scoutsman. Low gravity sniping. Lake, Safehouse, Dizzy, Lunacy and Shoots." 
+echo "[13] - Hunter Gathers. Death match, but collect dog-tags for extra points. Nuke, Dust II, INSERTION, THRILL, Canals, Cobblestone and Train."
+echo "[14] - Heavy Assault. Bomb maps. Assault suit not working.  Dust II, Mirage, Overpass, SHIPPED and AUSTRIA."
+echo "[15] - Arms Race. Baggage, Lake, Lunacy, Monastery, Safehouse, Shoots and St. Marc."
+echo "[16] - Demolition. Defusal missions. Earn new weapons for next round by killing opponents. Lake, Safehouse, Sugarcane, Bank, St Marc and ShortDust."
 echo
-echo -n "Please enter a choice (e.g 10 for the Hostage maps): "
+
+echo -n "Please enter 1-18 (Default is hostage maps): "
 read userchoice
 echo
 
+if [ -z "$userchoice" ]; then
+    userchoice="5"
+fi
 
 mapPack="mg_hostage"
-map=""
+map="cs_assault"
 if [ "$userchoice" = "1" ]; then
-    mapPack="mg_op_op08"
-    map="cs_agency"
-elif [ "$userchoice" = "0" ]; then
-    mapPack="mg_dust247"
-    map="de_dust2"
-elif [ "$userchoice" = "2" ]; then
-    mapPack="mg_op_07"
-elif [ "$userchoice" = "3" ]; then
-    mapPack="mg_op_06"
-elif [ "$userchoice" = "4" ]; then
-    mapPack="mg_op_05"
-elif [ "$userchoice" = "5" ]; then
-    mapPack="mg_op_breakout"
-elif [ "$userchoice" = "6" ]; then
     mapPack="mg_active"
     map="de_overpass"
-elif [ "$userchoice" = "7" ]; then
+elif [ "$userchoice" = "2" ]; then
     mapPack="mg_casualdelta"
     map="de_mirage"
-elif [ "$userchoice" = "8" ]; then
+elif [ "$userchoice" = "3" ]; then
     mapPack="mg_casualsigma"
     map="de_chlorine"
-elif [ "$userchoice" = "9" ]; then
+elif [ "$userchoice" = "4" ]; then
     mapPack="mg_reserves"
     map="de_canals"
-elif [ "$userchoice" = "10" ]; then
+elif [ "$userchoice" = "5" ]; then
     mapPack="mg_hostage"
     map="cs_assault"
-elif [ "$userchoice" = "11" ]; then
+elif [ "$userchoice" = "6" ]; then
     mapPack="mg_deathmatch"
-elif [ "$userchoice" = "12" ]; then
+elif [ "$userchoice" = "7" ]; then
     mapPack="mg_armsrace"
     map="de_safehouse"
-elif [ "$userchoice" = "13" ]; then
+elif [ "$userchoice" = "8" ]; then
     mapPack="mg_demolition"
     map="de_bank"
-elif [ "$userchoice" = "14" ]; then
+elif [ "$userchoice" = "9" ]; then
     mapPack="mg_lowgravity"
-elif [ "$userchoice" = "15" ]; then
+    map="de_lake"
+elif [ "$userchoice" = "11" ]; then
     mapPack="mg_skirmish_stabstabzap"
-elif [ "$userchoice" = "16" ]; then
+    map="gd_rialto"
+elif [ "$userchoice" = "12" ]; then
     mapPack="mg_skirmish_flyingscoutsman"
-elif [ "$userchoice" = "17" ]; then
-    mapPack="mg_skirmish_triggerdiscipline"
-elif [ "$userchoice" = "18" ]; then
-    mapPack="mg_skirmish_headshots"
-elif [ "$userchoice" = "19" ]; then
+    map="de_lunacy"
+elif [ "$userchoice" = "13" ]; then
     mapPack="mg_skirmish_huntergatherers"
-elif [ "$userchoice" = "20" ]; then
+    map="de_canals"
+elif [ "$userchoice" = "14" ]; then
     mapPack="mg_skirmish_heavyassaultsuit"
-elif [ "$userchoice" = "21" ]; then
+    map="de_overpass"
+elif [ "$userchoice" = "15" ]; then
     mapPack="mg_skirmish_armsrace"
     map="ar_baggage"
-elif [ "$userchoice" = "22" ]; then
+elif [ "$userchoice" = "16" ]; then
     mapPack="mg_skirmish_demolition"
     map="de_lake"
+elif [ "$userchoice" = "10" ]; then
+     echo " [0] - Anubis"
+     echo " [1] - Aztec"
+     echo " [2] - Bank (Guardian mode compatable)"
+     echo " [3] - Canals"
+     echo " [4] - Chlorine"
+     echo " [5] - Coblestone"
+     echo " [6] - Cobblestone (Guardian mode compatable)"
+     echo " [7] - Dizzy (Guardian mode compatable)"
+     echo " [8] - Dust II (Guardian mode compatable)"
+     echo " [9] - Inferno"
+     echo "[10] - Italy"
+     echo "[11] - Lake (Guardian mode compatable)"
+     echo "[12] - Mirage"
+     echo "[13] - Nuke"
+     echo "[14] - Overpass (Guardian mode compatable)"
+     echo "[15] - Rialto (Guardian mode compatable)"
+     echo "[16] - Sugarcane (p) (Guardian mode compatable)"
+     echo "[17] - Train"
+     echo "[18] - Vertigo"
+     echo "[19] - DANGER ZONE: Jungle (huge)"
+     echo "[20] - DANGER ZONE: Sirocco (huge)"
+     echo "[21] - DANGER ZONE: Black Site (huge)"
+     echo
+     echo -n "Please enter 0-21 (Default is Dust II): "
+     read userchoice
+
+     if [ -z "$userchoice" ]; then
+	 userchoice="8"
+     fi
+     
+     mapPack="mg_dust247"
+     map="de_dust2"
+     if [ "$userchoice" = "0" ]; then
+	 mapPack="mg_de_anubis"
+	 map="de_anubis"
+     elif [ "$userchoice" = "1" ]; then
+	 mapPack="mg_de_aztec"
+	 map="de_aztec"
+     elif [ "$userchoice" = "2" ]; then
+	 mapPack="mg_gd_bank"
+	 map="de_bank"
+     elif [ "$userchoice" = "3" ]; then
+	 mapPack="mg_de_canals"
+	 map="de_canals"
+     elif [ "$userchoice" = "4" ]; then
+	 mapPack="mg_de_chlorine"
+	 map="de_chlorine"
+     elif [ "$userchoice" = "5" ]; then
+	 mapPack="mg_de_cbble"
+	 map="de_cbble"
+     elif [ "$userchoice" = "6" ]; then
+	 mapPack="mg_gd_cbble"
+	 map="de_cbble"
+     elif [ "$userchoice" = "7" ]; then
+	 mapPack="mg_gd_dizzy"
+	 map="de_dizzy"
+     elif [ "$userchoice" = "8" ]; then
+	 mapPack="mg_dust247"
+	 map="de_dust2"
+     elif [ "$userchoice" = "9" ]; then
+	 mapPack="mg_de_inferno"
+	 map="de_inferno"
+     elif [ "$userchoice" = "10" ]; then
+	 mapPack="mg_cs_italy"
+	 map="cs_italy"
+     elif [ "$userchoice" = "11" ]; then
+	 mapPack="mg_gd_lake"
+	 map="de_lake"
+     elif [ "$userchoice" = "12" ]; then
+	 mapPack="mg_de_mirage"
+	 map="de_mirage"
+     elif [ "$userchoice" = "3" ]; then
+	 mapPack="mg_de_nuke"
+	 map="de_nuke"
+     elif [ "$userchoice" = "14" ]; then
+	 mapPack="mg_de_overpass"
+	 map="de_overpass"
+     elif [ "$userchoice" = "15" ]; then
+	 mapPack="mg_gd_rialto"
+	 map="gd_rialto"
+     elif [ "$userchoice" = "16" ]; then
+	 mapPack="mg_gd_sugarcane"
+	 map="de_sugarcane"
+     elif [ "$userchoice" = "17" ]; then
+	 mapPack="mg_de_train"
+	 map="de_train"
+     elif [ "$userchoice" = "18" ]; then
+	 mapPack="mg_de_vertigo"
+	 map="de_vertigo"
+     elif [ "$userchoice" = "19" ]; then
+	 mapPack="mg_dz_junglety"
+	 map="dz_junglety"
+     elif [ "$userchoice" = "20" ]; then
+	 mapPack="mg_dz_sirocco"
+	 map="dz_sirocco"
+     elif [ "$userchoice" = "21" ]; then
+	 mapPack="mg_dz_blacksite"
+	 map="dz_blacksite"
+     fi
 fi
 
 fi
 
 nobots="-nobots"
-if [ $gametype = "" ]; then
-    gametype="0"
-    gamemode="0"
-elif [ $gametype = "0" ]; then
+if [ $gametype = "0" ]; then
     gametype="0"
     gamemode="0"
 elif [ $gametype = "1" ]; then
@@ -153,6 +228,12 @@ elif [ $gametype = "6" ]; then
     gametype="4"
     gamemode="0"
     nobots=""
+elif [ $gametype = "7" ]; then
+    gamemode="3"
+    gametype="0"    
+elif  [ $gametype = "8" ]; then
+    gamemode="2"
+    gametype="0"
 fi
 
 #if [ $gamemode = "" ]; then
@@ -163,11 +244,11 @@ echo Launching CS-GO with $mapPack...
 echo
 
 if [ "$map" = "" ]; then
-    echo No map specified for first round.
-    ./srcds_run -game csgo -console -usercon +game_type $gametype +game_mode $gamemode +mapgroup $mapPack +sv_setsteamaccount YOUR_KEY_HERE -maxplayers_override 20 -net_port_try $nobots
+    echo No map specified for first round - will default to Dust II.
+    /home/steam/Steam/csgo-ds/srcds_run -game csgo -console -usercon +game_type $gametype +game_mode $gamemode +mapgroup $mapPack +sv_setsteamaccount $key -maxplayers_override 20 -net_port_try $nobots
 elif [ "$gametype" = "5" ]; then
-    ./srcds_run -game csgo -console -usercon +game_type 6 +game_mode 0 +sv_dz_team_count 3 + dz_shuffle_teams +map dz_blacksite +sv_setsteamaccount YOUR_KEY_HERE -maxplayers_override 20 -net_port_try $nobots
+    /home/steam/Steam/csgo-ds/srcds_run -game csgo -console -usercon +game_type 6 +game_mode 0 +sv_dz_team_count 3 + dz_shuffle_teams +map dz_blacksite +sv_setsteamaccount $key -maxplayers_override 20 -net_port_try $nobots
 else
-    echo Starting with $map first. 
-    ./srcds_run -game csgo -console -usercon +game_type $gametype +game_mode $gamemode +mapgroup $mapPack +map $map +sv_setsteamaccount YOUR_KEY_HERE -maxplayers_override 20 -net_port_try $nobots
+    echo Launching with $mapPack, starting with $map first. Type is $gametype and mode is $gamemode. 
+    /home/steam/Steam/csgo-ds/srcds_run -game csgo -console -usercon +game_type $gametype +game_mode $gamemode +mapgroup $mapPack +map $map +sv_setsteamaccount $key -maxplayers_override 20 -net_port_try $nobots
 fi
