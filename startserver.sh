@@ -164,10 +164,10 @@ echo
 
 if [ "$map" = "" ]; then
     echo No map specified for first round.
-    ./srcds_run -game csgo -console -usercon +game_type $gametype +game_mode $gamemode +mapgroup $mapPack +sv_setsteamaccount 9D28124F4DE0D8A2ECF1CF2C6918AE62 -maxplayers_override 20 -net_port_try $nobots
+    ./srcds_run -game csgo -console -usercon +game_type $gametype +game_mode $gamemode +mapgroup $mapPack +sv_setsteamaccount YOUR_KEY_HERE -maxplayers_override 20 -net_port_try $nobots
 elif [ "$gametype" = "5" ]; then
-    ./srcds_run -game csgo -console -usercon +game_type 6 +game_mode 0 +sv_dz_team_count 3 + dz_shuffle_teams +map dz_blacksite +sv_setsteamaccount 9D28124F4DE0D8A2ECF1CF2C6918AE62 -maxplayers_override 20 -net_port_try $nobots
+    ./srcds_run -game csgo -console -usercon +game_type 6 +game_mode 0 +sv_dz_team_count 3 + dz_shuffle_teams +map dz_blacksite +sv_setsteamaccount YOUR_KEY_HERE -maxplayers_override 20 -net_port_try $nobots
 else
     echo Starting with $map first. 
-    ./srcds_run -game csgo -console -usercon +game_type $gametype +game_mode $gamemode +mapgroup $mapPack +map $map +sv_setsteamaccount 9D28124F4DE0D8A2ECF1CF2C6918AE62 -maxplayers_override 20 -net_port_try $nobots
+    ./srcds_run -game csgo -console -usercon +game_type $gametype +game_mode $gamemode +mapgroup $mapPack +map $map +sv_setsteamaccount YOUR_KEY_HERE -maxplayers_override 20 -net_port_try $nobots
 fi
